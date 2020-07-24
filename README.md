@@ -6,7 +6,8 @@
 
   1. Clone this repo
   2. cd src
-  3. ./install.sh
+  3. chmod +x ./install.sh
+  4. ./install.sh
 
 ## Usage
 
