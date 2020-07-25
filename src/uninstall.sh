@@ -3,7 +3,6 @@
 INSTALL_DIR="/usr/bin"
 UTILITY_NAME=""
 
-
 UTILITY_NAME_FILE="./util.txt"
  STATUS_STR="[ status    ]"
 SUCCESS_STR="[ success   ]"
@@ -22,22 +21,20 @@ get_installation_directory(){
 
     if [ ! -z "$mac_system" ]; then
         echo "$STATUS_STR MacOS System"
-        INSTALL_DIR="/opt/local/bin/"
+        INSTALL_DIR="/opt/local/bin"
     fi
 }
 
-install_package(){
-    chmod +x $UTILITY_NAME
-    #check sudo 
-    cp $UTILITY_NAME $INSTALL_DIR &> /dev/null
+uninstall_package(){
+    rm $INSTALL_DIR/$UTILITY_NAME &> /dev/null
 }
 
-check_installation_status(){
+check_uninstall_status(){
     if [ $1 -eq 0 ]; then
-        echo "$SUCCESS_STR Utility ( $UTILITY_NAME ) installation is successful"
+        echo "$SUCCESS_STR Utility ( $UTILITY_NAME ) uninstall successful"
     else
-        echo "$FAILURE_STR Utility ( $UTILITY_NAME ) installation failed"
-	echo "$FAILURE_STR You should have sudo or root access to install this package"
+        echo "$FAILURE_STR Utility ( $UTILITY_NAME ) uninstall failed"
+	echo "$FAILURE_STR You should have sudo or root access to uninstall this package"
     fi
 }
 
@@ -56,8 +53,8 @@ usage(){
 is_file_exist(){
     if [ ! -f $1 ]; then
 	echo
-	echo "$ERROR_STR file '$1' doesn't exist in current directory"
-	echo
+	echo "$ERROR_STR package file '$1' not installed at default dir"
+	echo "$ERROR_STR Uninstall failed!"
     	exit 1
     fi
 }
@@ -81,8 +78,8 @@ if [ -z "$UTILITY_NAME" ]; then
     UTILITY_NAME="$1"
 fi
 
-is_file_exist $UTILITY_NAME
 get_installation_directory
-install_package
-check_installation_status $?
+is_file_exist $INSTALL_DIR/$UTILITY_NAME
+uninstall_package
+check_uninstall_status $?
 

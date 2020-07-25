@@ -19,4 +19,13 @@
 
 	diff_download  test@192.168.1.1:22 remote_dir ./	
   
+## Uninstall
+	
+   To uninstall the utility execute
 
+ 	./uninstall.sh
+
+## Tested Systems
+
+	1. Linux
+	2. MacOS
